@@ -14,14 +14,19 @@ public class MainScreen extends BaseScreen {
     private Texture background;
     private Texture spaceship;
     private Vector2 position;
-    private Vector2 nextPosistion;
+    private Vector2 nextPosition;
     private Vector2 speed = new Vector2(2, 2);
+    private Vector2 direction;
     private Vector2 UP = new Vector2(0, 2);
     private Vector2 DOWN = new Vector2(0, -2);
     private Vector2 LEFT = new Vector2(-2, 0);
     private Vector2 RIGHT = new Vector2(2, 0);
-    private int mouseX;
-    private int mouseY;
+    private boolean moveUP;
+    private boolean moveDOWN;
+    private boolean moveLEFT;
+    private boolean moveRIGHT;
+    private float v;
+    private boolean isMoved;
 
     @Override
     public void show() {
@@ -40,37 +45,7 @@ public class MainScreen extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) &&
-                position.y + spaceship.getHeight() <= Gdx.graphics.getHeight()) {
-            position.add(UP);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && position.y >= 0) {
-            position.add(DOWN);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && position.x >= 0) {
-            position.add(LEFT);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) &&
-                position.x + spaceship.getWidth() <= Gdx.graphics.getWidth()) {
-            position.add(RIGHT);
-        }
-
-        if (Gdx.input.isTouched()) {
-            mouseX = Gdx.input.getX();
-            mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            System.out.println("x: " + mouseX + "; " + "y: " + mouseY);
-            nextPosistion = new Vector2(mouseX, mouseY);
-            nextPosistion.sub(position);
-            if ((position.x <= 0) ||
-                    (position.y <= 0) ||
-                    (position.x + spaceship.getWidth() >= Gdx.graphics.getWidth()) ||
-                    (position.y + spaceship.getHeight() >= Gdx.graphics.getHeight())) {
-                speed.setZero();
-                nextPosistion.setZero();
-            }
-        }
-
+        updateMotion();
         batch.draw(spaceship, position.x, position.y);
         batch.end();
     }
@@ -82,14 +57,91 @@ public class MainScreen extends BaseScreen {
         super.dispose();
     }
 
+    private void updateMotion() {
+        if (moveUP && position.y + spaceship.getHeight() <= Gdx.graphics.getHeight())
+            position.add(UP);
+        if (moveDOWN && position.y >= 0) position.add(DOWN);
+        if (moveLEFT && position.x >= 0) position.add(LEFT);
+        if (moveRIGHT && position.x + spaceship.getWidth() <= Gdx.graphics.getWidth())
+            position.add(RIGHT);
+        if (isMoved) {
+            position.add(direction.nor().scl(v));
+            if ((position.x <= 0) || (position.y <= 0) ||
+                    (position.x + spaceship.getWidth() >= Gdx.graphics.getWidth()) ||
+                    (position.y + spaceship.getHeight() >= Gdx.graphics.getHeight()) ||
+                    (position.x + spaceship.getWidth() / 2 == nextPosition.x) ||
+                    (position.y + spaceship.getWidth() / 2 == nextPosition.y)) {
+                direction.setZero();
+            }
+        }
+    }
+
+    private void setMoveUP(boolean b) {
+        if (moveDOWN && b) moveDOWN = false;
+        moveUP = b;
+    }
+
+    private void setMoveDOWN(boolean b) {
+        if (moveUP && b) moveUP = false;
+        moveDOWN = b;
+    }
+
+    private void setMoveLEFT(boolean b) {
+        if (moveRIGHT && b) moveRIGHT = false;
+        moveLEFT = b;
+    }
+
+    private void setMoveRIGHT(boolean b) {
+        if (moveLEFT && b) moveLEFT = false;
+        moveRIGHT = b;
+    }
+
     @Override
     public boolean keyDown(int keycode) {
-        return super.keyDown(keycode);
+        switch (keycode) {
+            case Input.Keys.UP:
+                setMoveUP(true);
+                break;
+            case Input.Keys.DOWN:
+                setMoveDOWN(true);
+                break;
+            case Input.Keys.LEFT:
+                setMoveLEFT(true);
+                break;
+            case Input.Keys.RIGHT:
+                setMoveRIGHT(true);
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        switch (keycode) {
+            case Input.Keys.UP:
+                setMoveUP(false);
+                break;
+            case Input.Keys.DOWN:
+                setMoveDOWN(false);
+                break;
+            case Input.Keys.LEFT:
+                setMoveLEFT(false);
+                break;
+            case Input.Keys.RIGHT:
+                setMoveRIGHT(false);
+                break;
+        }
+        return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return super.touchDown(screenX, screenY, pointer, button);
+        nextPosition = new Vector2(screenX - spaceship.getWidth() / 2,
+                Gdx.graphics.getHeight() - screenY - spaceship.getHeight() / 2);
+        direction = nextPosition.sub(position.cpy());
+        v = (float) Math.sqrt(speed.x * speed.x + speed.y * speed.y);
+        isMoved = true;
+        return false;
     }
 
 }
