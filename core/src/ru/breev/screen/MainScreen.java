@@ -27,6 +27,8 @@ public class MainScreen extends BaseScreen {
     private boolean moveRIGHT;
     private float v;
     private boolean isMoved;
+    private float halfWidthSpaceship;
+    private float halfHeightSpaceship;
 
     @Override
     public void show() {
@@ -34,8 +36,10 @@ public class MainScreen extends BaseScreen {
         batch = new SpriteBatch();
         background = new Texture("space.png");
         spaceship = new Texture("spaceship1_128.png");
-        position = new Vector2((Gdx.graphics.getWidth() / 2) - (spaceship.getWidth() / 2),
-                (Gdx.graphics.getHeight() / 2) - (spaceship.getHeight() / 2));
+        halfWidthSpaceship = spaceship.getWidth() / 2;
+        halfHeightSpaceship = spaceship.getHeight() / 2;
+        position = new Vector2((Gdx.graphics.getWidth() / 2) - (halfWidthSpaceship),
+                (Gdx.graphics.getHeight() / 2) - (halfHeightSpaceship));
     }
 
     @Override
@@ -69,8 +73,7 @@ public class MainScreen extends BaseScreen {
             if ((position.x <= 0) || (position.y <= 0) ||
                     (position.x + spaceship.getWidth() >= Gdx.graphics.getWidth()) ||
                     (position.y + spaceship.getHeight() >= Gdx.graphics.getHeight()) ||
-                    (position.x + spaceship.getWidth() / 2 == nextPosition.x) ||
-                    (position.y + spaceship.getWidth() / 2 == nextPosition.y)) {
+                    (nextPosition.cpy().sub(position).len() <= v)) {
                 direction.setZero();
             }
         }
@@ -136,10 +139,11 @@ public class MainScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        nextPosition = new Vector2(screenX - spaceship.getWidth() / 2,
-                Gdx.graphics.getHeight() - screenY - spaceship.getHeight() / 2);
+        nextPosition = new Vector2(screenX - halfWidthSpaceship,
+                Gdx.graphics.getHeight() - screenY - halfHeightSpaceship);
         direction = nextPosition.sub(position.cpy());
-        v = (float) Math.sqrt(speed.x * speed.x + speed.y * speed.y);
+        //v = (float) Math.sqrt(speed.x * speed.x + speed.y * speed.y);
+        v = speed.len();
         isMoved = true;
         return false;
     }
