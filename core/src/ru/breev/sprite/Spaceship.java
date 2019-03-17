@@ -1,8 +1,6 @@
 package ru.breev.sprite;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.breev.base.Sprite;
@@ -22,7 +20,6 @@ public class Spaceship extends Sprite {
     private boolean moveDOWN;
     private boolean moveLEFT;
     private boolean moveRIGHT;
-    private Rect worldBounds;
 
     public Spaceship(TextureAtlas atlas) {
         super(atlas.findRegion("main_ship"));
@@ -33,4 +30,5 @@ public class Spaceship extends Sprite {
     public void resize(Rect worldBounds) {
         setBottom(worldBounds.getBottom() + 0.02f);
     }
+
 }
