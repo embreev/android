@@ -74,7 +74,7 @@ public class MainScreen extends BaseScreen {
             position.add(RIGHT);
         if (isMoved) {
             position.add(direction.nor().scl(v));
-            System.out.printf("SRC %s: %s\nDST %s: %s\n", position.x, position.y, nextPosition.x, nextPosition.y);
+//            System.out.printf("SRC %s: %s\nDST %s: %s\n", position.x, position.y, nextPosition.x, nextPosition.y);
             if ((position.x <= 0) || (position.y <= 0) ||
                     (position.x + spaceship.getWidth() >= Gdx.graphics.getWidth()) ||
                     (position.y + spaceship.getHeight() >= Gdx.graphics.getHeight()) ||
