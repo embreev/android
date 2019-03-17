@@ -9,25 +9,36 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import ru.breev.base.Base2DScreen;
 import ru.breev.math.Rect;
 import ru.breev.sprite.Background;
+import ru.breev.sprite.Star;
 
 public class GameScreen extends Base2DScreen {
+
+    private static final int STAR_COUNT = 128;
 
     private Background background;
     private Texture backgroundTexture;
     private TextureAtlas atlas;
+    private Star starList[];
 
     @Override
     public void show() {
         super.show();
-        backgroundTexture = new Texture("textures/bg.png");
+        backgroundTexture = new Texture("textures/space.png");
         background = new Background(new TextureRegion(backgroundTexture));
-        atlas = new TextureAtlas("textures/mainAtlas.tpack");
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        starList = new Star[STAR_COUNT];
+        for (int i = 0; i < starList.length; i++) {
+            starList[i] = new Star(atlas);
+        }
     }
 
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
+        for (Star star : starList) {
+            star.resize(worldBounds);
+        }
     }
 
     @Override
@@ -38,7 +49,9 @@ public class GameScreen extends Base2DScreen {
     }
 
     private void update(float delta) {
-
+        for (Star star : starList) {
+            star.update(delta);
+        }
     }
 
     private void draw() {
@@ -46,6 +59,9 @@ public class GameScreen extends Base2DScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
+        for (Star star : starList) {
+            star.draw(batch);
+        }
         batch.end();
     }
 

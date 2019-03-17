@@ -17,7 +17,7 @@ import ru.breev.sprite.Star;
 
 public class MenuScreen extends Base2DScreen {
 
-    private static final int STAR_COUNT = 256;
+    private static final int STAR_COUNT = 128;
 
     private Game game;
 
@@ -36,7 +36,7 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void show() {
         super.show();
-        backgroundTexture = new Texture("textures/bg.png");
+        backgroundTexture = new Texture("textures/space.png");
         background = new Background(new TextureRegion(backgroundTexture));
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
         starList = new Star[STAR_COUNT];
@@ -61,8 +61,8 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-       update(delta);
-       draw();
+        update(delta);
+        draw();
     }
 
     private void update(float delta) {
