@@ -13,9 +13,7 @@ import ru.breev.sprite.Spaceship;
 import ru.breev.sprite.Star;
 
 public class GameScreen extends Base2DScreen {
-
     private static final int STAR_COUNT = 128;
-
     private Background background;
     private Texture backgroundTexture;
     private TextureAtlas atlas;
@@ -56,6 +54,7 @@ public class GameScreen extends Base2DScreen {
         for (Star star : starList) {
             star.update(delta);
         }
+        spaceship.update(delta);
     }
 
     private void draw() {
