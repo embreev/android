@@ -72,7 +72,7 @@ public class MenuScreen extends Base2DScreen {
     }
 
     private void draw() {
-        Gdx.gl.glClearColor(0.51f, 0.34f, 0.64f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
