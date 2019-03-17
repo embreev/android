@@ -29,6 +29,8 @@ public class MainScreen extends BaseScreen {
     private boolean isMoved;
     private float halfWidthSpaceship;
     private float halfHeightSpaceship;
+    private float halfWidthScreen;
+    private float halfHeightScreen;
 
     @Override
     public void show() {
@@ -38,8 +40,10 @@ public class MainScreen extends BaseScreen {
         spaceship = new Texture("spaceship1_128.png");
         halfWidthSpaceship = spaceship.getWidth() / 2;
         halfHeightSpaceship = spaceship.getHeight() / 2;
-        position = new Vector2((Gdx.graphics.getWidth() / 2) - (halfWidthSpaceship),
-                (Gdx.graphics.getHeight() / 2) - (halfHeightSpaceship));
+        halfWidthScreen = Gdx.graphics.getWidth() / 2;
+        halfHeightScreen = Gdx.graphics.getHeight() / 2;
+        position = new Vector2(halfWidthScreen - halfWidthSpaceship,
+                halfHeightScreen - halfHeightSpaceship);
     }
 
     @Override
@@ -70,6 +74,7 @@ public class MainScreen extends BaseScreen {
             position.add(RIGHT);
         if (isMoved) {
             position.add(direction.nor().scl(v));
+//            System.out.printf("SRC %s: %s\nDST %s: %s\n", position.x, position.y, nextPosition.x, nextPosition.y);
             if ((position.x <= 0) || (position.y <= 0) ||
                     (position.x + spaceship.getWidth() >= Gdx.graphics.getWidth()) ||
                     (position.y + spaceship.getHeight() >= Gdx.graphics.getHeight()) ||
@@ -141,9 +146,10 @@ public class MainScreen extends BaseScreen {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         nextPosition = new Vector2(screenX - halfWidthSpaceship,
                 Gdx.graphics.getHeight() - screenY - halfHeightSpaceship);
-        direction = nextPosition.sub(position.cpy());
-        //v = (float) Math.sqrt(speed.x * speed.x + speed.y * speed.y);
+        direction = nextPosition.cpy().sub(position);
+//        v = (float) Math.sqrt(speed.x * speed.x + speed.y * speed.y);
         v = speed.len();
+//        System.out.printf("SRC %s: %s\nDST %s: %s\n", position.x, position.y, nextPosition.x, nextPosition.y);
         isMoved = true;
         return false;
     }
