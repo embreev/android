@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.breev.base.Base2DScreen;
 import ru.breev.math.Rect;
 import ru.breev.sprite.Background;
+import ru.breev.sprite.EnemyShip;
 import ru.breev.sprite.MainShip;
 import ru.breev.sprite.Star;
 
@@ -24,6 +25,7 @@ public class GameScreen extends Base2DScreen {
 
     private Star starList[];
     private MainShip mainShip;
+    private EnemyShip enemyShip;
 
     private Music music;
 
@@ -41,6 +43,7 @@ public class GameScreen extends Base2DScreen {
             starList[i] = new Star(atlas);
         }
         mainShip = new MainShip(atlas);
+        enemyShip = new EnemyShip(atlas, 100, 5);
     }
 
     @Override
@@ -51,6 +54,7 @@ public class GameScreen extends Base2DScreen {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        enemyShip.resize(worldBounds);
     }
 
     @Override
@@ -65,6 +69,7 @@ public class GameScreen extends Base2DScreen {
             star.update(delta);
         }
         mainShip.update(delta);
+        enemyShip.update(delta);
     }
 
     private void draw() {
@@ -76,6 +81,7 @@ public class GameScreen extends Base2DScreen {
             star.draw(batch);
         }
         mainShip.draw(batch);
+        enemyShip.draw(batch);
         batch.end();
     }
 
