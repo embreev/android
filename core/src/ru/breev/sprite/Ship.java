@@ -33,6 +33,14 @@ public class Ship extends Sprite {
         super(region, rows, cols, frames);
     }
 
+    public float getHp() {
+        return hp;
+    }
+
+    public void setHp(float hp) {
+        this.hp = hp;
+    }
+
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;

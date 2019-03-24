@@ -1,6 +1,7 @@
 package ru.breev.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.breev.base.Sprite;
@@ -12,6 +13,8 @@ public class Bullet extends Sprite {
     private Vector2 v;
     private int damage;
     private Object owner;
+
+//    public Circle hitArea;
 
     public Bullet() {
         this.v = new Vector2();
@@ -40,6 +43,7 @@ public class Bullet extends Sprite {
         setHeightProportion(height);
         this.worldBounds = worldBounds;
         this.damage = damage;
+//        this.hitArea = new Circle(this.pos.x, this.pos.y, this.halfHeight);
     }
 
     @Override
@@ -48,6 +52,8 @@ public class Bullet extends Sprite {
         if (isOutside(worldBounds)) {
             destroy();
         }
+//        hitArea.x = pos.x;
+//        hitArea.y = pos.y;
     }
 
     public int getDamage() {

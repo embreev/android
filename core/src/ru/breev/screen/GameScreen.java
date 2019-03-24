@@ -14,13 +14,15 @@ import ru.breev.math.Rect;
 import ru.breev.pool.BulletPool;
 import ru.breev.pool.EnemyPool;
 import ru.breev.sprite.Background;
+import ru.breev.sprite.Bullet;
+import ru.breev.sprite.Enemy;
 import ru.breev.sprite.MainShip;
 import ru.breev.sprite.Star;
 import ru.breev.utils.EnemiesEmitter;
 
 public class GameScreen extends Base2DScreen {
 
-    private static final int STAR_COUNT = 64;
+    private static final int STAR_COUNT = 32;
 
     private Background background;
     private Texture backgroundTexture;
@@ -81,7 +83,10 @@ public class GameScreen extends Base2DScreen {
         for (Star star : starList) {
             star.update(delta);
         }
-        mainShip.update(delta);
+//        hitTarget();
+        if (mainShip.getHp() > 0) {
+            mainShip.update(delta);
+        }
         bulletPool.updateActiveSprites(delta);
         enemyPool.updateActiveSprites(delta);
         enemiesEmitter.generateSmall(delta);
@@ -143,4 +148,17 @@ public class GameScreen extends Base2DScreen {
         mainShip.keyUp(keycode);
         return false;
     }
+
+//    public void hitTarget() {
+//        rBullet = 0.5 * Math.sqrt(this.getWidth() * this.getWidth() + this.getHeight() * this.getHeight());
+//
+//        for (Bullet bullet : bulletPool.getActiveObjects()) {
+//            for (Enemy enemy: enemyPool.getActiveObjects())
+//                if (bullet.hitArea.contains(enemy.pos)) {
+//                    bullet.destroy();
+//                    enemy.setHp(enemy.getHp() - bullet.getDamage());
+//            }
+//        }
+//    }
+
 }
