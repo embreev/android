@@ -22,14 +22,14 @@ public class EnemiesEmitter {
     private static final float ENEMY_MIDDLE_BULLET_HEIGHT = 0.02f;
     private static final float ENEMY_MIDDLE_BULLET_VY = -0.3f;
     private static final int ENEMY_MIDDLE_DAMAGE = 2;
-    private static final float ENEMY_MIDDLE_RELOAD_INTERVAL = 6f;
+    private static final float ENEMY_MIDDLE_RELOAD_INTERVAL = 9f;
     private static final int ENEMY_MIDDLE_HP = 2;
 
     private static final float ENEMY_BIG_HEIGHT = 0.16f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.03f;
     private static final float ENEMY_BIG_BULLET_VY = -0.3f;
     private static final int ENEMY_BIG_DAMAGE = 3;
-    private static final float ENEMY_BIG_RELOAD_INTERVAL = 9f;
+    private static final float ENEMY_BIG_RELOAD_INTERVAL = 27f;
     private static final int ENEMY_BIG_HP = 3;
 
     private Rect worldBounds;
@@ -66,7 +66,7 @@ public class EnemiesEmitter {
 
     public void generateSmall(float delta) {
         generateTimer0 += delta;
-        if (generateTimer0 >= generateInterval) {
+        if (generateTimer0 >= ENEMY_SMALL_RELOAD_INTERVAL) {
             generateTimer0 = 0f;
             Enemy enemy = enemyPool.obtain();
             enemy.set(
@@ -87,7 +87,7 @@ public class EnemiesEmitter {
 
     public void generateMiddle(float delta) {
         generateTimer1 += delta;
-        if (generateTimer1 >= generateInterval) {
+        if (generateTimer1 >= ENEMY_MIDDLE_RELOAD_INTERVAL) {
             generateTimer1 = 0f;
             Enemy enemy = enemyPool.obtain();
             enemy.set(
@@ -108,7 +108,7 @@ public class EnemiesEmitter {
 
     public void generateBig(float delta) {
         generateTimer2 += delta;
-        if (generateTimer2 >= generateInterval) {
+        if (generateTimer2 >= ENEMY_BIG_RELOAD_INTERVAL) {
             generateTimer2 = 0f;
             Enemy enemy = enemyPool.obtain();
             enemy.set(
