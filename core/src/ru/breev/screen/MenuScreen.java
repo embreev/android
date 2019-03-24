@@ -2,6 +2,7 @@ package ru.breev.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,7 +18,7 @@ import ru.breev.sprite.Star;
 
 public class MenuScreen extends Base2DScreen {
 
-    private static final int STAR_COUNT = 128;
+    private static final int STAR_COUNT = 256;
 
     private Game game;
 
@@ -29,6 +30,8 @@ public class MenuScreen extends Base2DScreen {
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
 
+    private Music music;
+
     public MenuScreen(Game game) {
         this.game = game;
     }
@@ -36,7 +39,11 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void show() {
         super.show();
-        backgroundTexture = new Texture("textures/space.png");
+        music = Gdx.audio.newMusic(Gdx.files.internal("data/starwars.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.3f);
+        music.play();
+        backgroundTexture = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(backgroundTexture));
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
         starList = new Star[STAR_COUNT];
@@ -72,7 +79,7 @@ public class MenuScreen extends Base2DScreen {
     }
 
     private void draw() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.51f, 0.34f, 0.64f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
@@ -88,6 +95,7 @@ public class MenuScreen extends Base2DScreen {
     public void dispose() {
         backgroundTexture.dispose();
         atlas.dispose();
+        music.dispose();
         super.dispose();
     }
 
