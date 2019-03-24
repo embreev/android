@@ -84,7 +84,9 @@ public class GameScreen extends Base2DScreen {
         mainShip.update(delta);
         bulletPool.updateActiveSprites(delta);
         enemyPool.updateActiveSprites(delta);
-        enemiesEmitter.generate(delta);
+        enemiesEmitter.generateSmall(delta);
+        enemiesEmitter.generateMiddle(delta);
+        enemiesEmitter.generateBig(delta);
     }
 
     private void deleteAllDestroyed() {

@@ -25,7 +25,7 @@ public class MainShip extends Ship {
         setHeightProportion(0.15f);
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
-        this.bulletHeight = 0.01f;
+        this.bulletHeight = 0.012f;
         this.bulletV.set(0, 0.5f);
         this.damage = 1;
         this.hp = 10;
