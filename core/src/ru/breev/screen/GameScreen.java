@@ -1,5 +1,6 @@
 package ru.breev.screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -27,6 +28,10 @@ public class GameScreen extends Base2DScreen {
 
     private static final int STAR_COUNT = 64;
 
+    private Game game;
+    private float newGameInterval = 1f;
+    private float newGameTimer;
+
     private Background background;
     private Texture backgroundTexture;
     private TextureAtlas atlas;
@@ -44,6 +49,10 @@ public class GameScreen extends Base2DScreen {
     private Sound laserSound;
     private Sound bulletSound;
     private Sound explosionSound;
+
+    public GameScreen(Game game) {
+        this.game = game;
+    }
 
     @Override
     public void show() {
@@ -99,6 +108,11 @@ public class GameScreen extends Base2DScreen {
             bulletPool.updateActiveSprites(delta);
             enemyPool.updateActiveSprites(delta);
             enemiesEmitter.generate(delta);
+        } else {
+            newGameTimer += delta;
+            if (newGameTimer > newGameInterval) {
+                game.setScreen(new EndScreen(game));
+            }
         }
     }
 
@@ -153,7 +167,7 @@ public class GameScreen extends Base2DScreen {
     }
 
     private void draw() {
-        Gdx.gl.glClearColor(0.51f, 0.34f, 0.64f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
