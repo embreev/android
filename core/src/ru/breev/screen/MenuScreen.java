@@ -39,7 +39,7 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void show() {
         super.show();
-        music = Gdx.audio.newMusic(Gdx.files.internal("data/starwars.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
         backgroundTexture = new Texture("textures/bg.png");
