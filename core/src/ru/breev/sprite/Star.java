@@ -9,8 +9,8 @@ import ru.breev.math.Rnd;
 
 public class Star extends Sprite {
 
-    private float starHeight;
-    private Vector2 v;
+    protected float starHeight;
+    protected Vector2 v;
     private Rect worldBounds;
 
     public Star(TextureAtlas atlas) {
@@ -42,7 +42,7 @@ public class Star extends Sprite {
         pos.set(posX, posY);
     }
 
-    private void checkAndHandleBounds() {
+    protected void checkAndHandleBounds() {
         if (getRight() < worldBounds.getLeft()) {
             setLeft(worldBounds.getRight());
         }

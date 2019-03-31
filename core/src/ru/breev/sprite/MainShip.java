@@ -12,6 +12,7 @@ import ru.breev.pool.ExplosionPool;
 public class MainShip extends Ship {
 
     private static final int INVALID_POINTER = -1;
+    private static final int HP = 100;
 
     private Vector2 v0 = new Vector2(0.5f, 0);
 
@@ -30,9 +31,15 @@ public class MainShip extends Ship {
         this.bulletHeight = 0.01f;
         this.bulletV.set(0, 0.5f);
         this.damage = 1;
-        this.hp = 10;
         this.reloadInterval = 0.2f;
         this.shootSound = shootSound;
+        this.hp = HP;
+    }
+
+    public void startNewGame(Rect worldBounds) {
+        this.hp = HP;
+        pos.x = worldBounds.pos.x;
+        flushDestroy();
     }
 
     @Override

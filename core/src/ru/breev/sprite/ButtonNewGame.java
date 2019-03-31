@@ -1,29 +1,23 @@
 package ru.breev.sprite;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import ru.breev.base.ScaledButton;
-import ru.breev.math.Rect;
 import ru.breev.screen.GameScreen;
 
 public class ButtonNewGame extends ScaledButton {
 
-    private Game game;
+    private GameScreen gameScreen;
 
-    public ButtonNewGame(TextureAtlas atlas, Game game) {
+    public ButtonNewGame(TextureAtlas atlas, GameScreen gameScreen) {
         super(atlas.findRegion("button_new_game"));
-        this.game = game;
-        setHeightProportion(0.1f);
-    }
-
-    @Override
-    public void resize(Rect worldBounds) {
-        setBottom(worldBounds.getBottom() + 0.1f);
+        setHeightProportion(0.05f);
+        setTop(-0.012f);
+        this.gameScreen = gameScreen;
     }
 
     @Override
     protected void action() {
-        game.setScreen(new GameScreen(game));
+        gameScreen.startNewGame();
     }
 }
