@@ -12,11 +12,11 @@ import com.badlogic.gdx.math.Vector2;
 import ru.breev.base.Base2DScreen;
 import ru.breev.math.Rect;
 import ru.breev.sprite.Background;
-import ru.breev.sprite.ButtonExit;
-import ru.breev.sprite.ButtonPlay;
+import ru.breev.sprite.ButtonGameOver;
+import ru.breev.sprite.ButtonNewGame;
 import ru.breev.sprite.Star;
 
-public class MenuScreen extends Base2DScreen {
+public class EndScreen extends Base2DScreen {
 
     private static final int STAR_COUNT = 128;
 
@@ -27,12 +27,12 @@ public class MenuScreen extends Base2DScreen {
     private TextureAtlas atlas;
 
     private Star starList[];
-    private ButtonExit buttonExit;
-    private ButtonPlay buttonPlay;
+    private ButtonGameOver buttonGameOver;
+    private ButtonNewGame buttonNewGame;
 
     private Music music;
 
-    public MenuScreen(Game game) {
+    public EndScreen(Game game) {
         this.game = game;
     }
 
@@ -45,13 +45,13 @@ public class MenuScreen extends Base2DScreen {
         music.play();
         backgroundTexture = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(backgroundTexture));
-        atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        atlas = new TextureAtlas("textures/mainAtlas.tpack");
         starList = new Star[STAR_COUNT];
         for (int i = 0; i < starList.length; i++) {
             starList[i] = new Star(atlas);
         }
-        buttonExit = new ButtonExit(atlas);
-        buttonPlay = new ButtonPlay(atlas, game);
+        buttonGameOver = new ButtonGameOver(atlas);
+        buttonNewGame = new ButtonNewGame(atlas, game);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class MenuScreen extends Base2DScreen {
         for (Star star : starList) {
             star.resize(worldBounds);
         }
-        buttonExit.resize(worldBounds);
-        buttonPlay.resize(worldBounds);
+        buttonGameOver.resize(worldBounds);
+        buttonNewGame.resize(worldBounds);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class MenuScreen extends Base2DScreen {
         for (Star star : starList) {
             star.draw(batch);
         }
-        buttonExit.draw(batch);
-        buttonPlay.draw(batch);
+        buttonGameOver.draw(batch);
+        buttonNewGame.draw(batch);
         batch.end();
     }
 
@@ -101,15 +101,16 @@ public class MenuScreen extends Base2DScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
-        buttonExit.touchDown(touch, pointer);
-        buttonPlay.touchDown(touch, pointer);
+        buttonGameOver.touchDown(touch, pointer);
+        buttonNewGame.touchDown(touch, pointer);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
-        buttonExit.touchUp(touch, pointer);
-        buttonPlay.touchUp(touch, pointer);
+        buttonGameOver.touchUp(touch, pointer);
+        buttonNewGame.touchUp(touch, pointer);
         return false;
     }
+
 }
