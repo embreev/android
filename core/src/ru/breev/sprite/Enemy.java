@@ -16,11 +16,13 @@ public class Enemy extends Ship {
     private Vector2 descentV = new Vector2(0, -0.15f);
     private State state;
 
-    public Enemy(BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound, Rect worldBounds) {
+    public static int missed = 0;
+
+    public Enemy(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds, Sound shootSound) {
         this.bulletPool = bulletPool;
         this.explosionPool = explosionPool;
-        this.shootSound = shootSound;
         this.worldBounds = worldBounds;
+        this.shootSound = shootSound;
     }
 
     @Override
@@ -40,6 +42,7 @@ public class Enemy extends Ship {
                     shoot();
                 }
                 if (getBottom() <= worldBounds.getBottom()) {
+                    missed++;
                     this.destroy();
                 }
                 break;
@@ -69,6 +72,10 @@ public class Enemy extends Ship {
         reloadTimer = reloadInterval;
         this.v.set(descentV);
         state = State.DESCENT;
+    }
+
+    public int getMissed() {
+        return missed;
     }
 
     public boolean isBulletCollision(Rect bullet) {

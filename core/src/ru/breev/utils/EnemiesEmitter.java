@@ -115,4 +115,5 @@ public class EnemiesEmitter {
     public int getLevel() {
         return level;
     }
+
 }

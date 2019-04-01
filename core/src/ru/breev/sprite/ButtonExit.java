@@ -10,7 +10,7 @@ public class ButtonExit extends ScaledButton {
 
     public ButtonExit(TextureAtlas atlas) {
         super(atlas.findRegion("btExit"));
-        setHeightProportion(0.2f);
+        setHeightProportion(0.16f);
     }
 
     @Override

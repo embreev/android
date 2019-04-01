@@ -18,7 +18,7 @@ import ru.breev.sprite.Star;
 
 public class MenuScreen extends Base2DScreen {
 
-    private static final int STAR_COUNT = 256;
+    private static final int STAR_COUNT = 128;
 
     private Game game;
 
@@ -39,7 +39,8 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void show() {
         super.show();
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("data/starwars.mp3"));
+        music.setVolume(0.7f);
         music.setLooping(true);
         music.play();
         backgroundTexture = new Texture("textures/bg.png");
@@ -78,7 +79,7 @@ public class MenuScreen extends Base2DScreen {
     }
 
     private void draw() {
-        Gdx.gl.glClearColor(0.51f, 0.34f, 0.64f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
