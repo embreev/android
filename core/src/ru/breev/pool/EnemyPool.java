@@ -22,6 +22,6 @@ public class EnemyPool extends SpritesPool<Enemy> {
 
     @Override
     protected Enemy newObject() {
-        return new Enemy(bulletPool, explosionPool, shootSound, worldBounds);
+        return new Enemy(bulletPool, explosionPool, worldBounds, shootSound);
     }
 }

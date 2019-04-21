@@ -61,17 +61,6 @@ public class Sprite extends Rect {
         return false;
     }
 
-    public float getAngle() {
-        return angle;
-    }
-
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
-
-    public float getScale() {
-        return scale;
-    }
 
     public void setScale(float scale) {
         this.scale = scale;
